@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  category_id Int        @id @default(autoincrement())
+  name        String     @db.VarChar(100)
+  costumes    costumes[]
+}
+
+model costumes {
+  costume_id    Int             @id @default(autoincrement())
+  name          String          @db.VarChar(100)
+  description   String?         @db.Text
+  price         Decimal         @db.Decimal(10, 2)
+  stock         Int             @default(1)
+  size          costumes_size
+  gender        costumes_gender
+  category_id   Int?
+  created_at    DateTime?       @default(now()) @db.Timestamp(0)
+  costumeimages costumeimages[]
+  categories    categories?     @relation(fields: [category_id], references: [category_id], onUpdate: Restrict, map: "costumes_ibfk_1")
+  rentals       rentals[]
+
+  @@index([category_id], map: "category_id")
+}
+
+model rentals {
+  rental_id    Int             @id @default(autoincrement())
+  user_id      Int
+  costume_id   Int
+  rental_start DateTime?       @db.Date
+  rental_end   DateTime?       @db.Date
+  total_price  Decimal         @db.Decimal(10, 2)
+  status       rentals_status? @default(pending)
+  created_at   DateTime?       @default(now()) @db.Timestamp(0)
+  users        users           @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "rentals_ibfk_1")
+  costumes     costumes        @relation(fields: [costume_id], references: [costume_id], onUpdate: Restrict, map: "rentals_ibfk_2")
+
+  @@index([costume_id], map: "costume_id")
+  @@index([user_id], map: "user_id")
+}
+
+model users {
+  user_id      Int        @id @default(autoincrement())
+  full_name    String?    @db.VarChar(100)
+  username     String     @unique(map: "username") @db.VarChar(100)
+  email        String     @unique(map: "email") @db.VarChar(100)
+  password     String     @db.VarChar(255)
+  phone_number String?    @db.VarChar(20)
+  nik_ktp      String     @unique(map: "nik_ktp") @db.Char(16)
+  address      String?    @db.Text
+  created_at   DateTime?  @default(now()) @db.Timestamp(0)
+  role         users_role @default(user)
+  rentals      rentals[]
+}
+
+model costumeimages {
+  image_id    Int       @id @default(autoincrement())
+  costume_id  Int
+  image_url   String    @db.VarChar(355)
+  public_id   String    @db.VarChar(255)
+  is_main     Boolean   @default(true)
+  uploaded_at DateTime? @default(now()) @db.Timestamp(0)
+  costumes    costumes  @relation(fields: [costume_id], references: [costume_id], onDelete: Cascade, onUpdate: Restrict, map: "fk_costume_images_costume")
+
+  @@index([costume_id], map: "idx_costume_id")
+}
+
+enum users_role {
+  user
+  admin
+}
+
+enum costumes_size {
+  S
+  M
+  L
+  XL
+}
+
+enum costumes_gender {
+  Pria
+  Wanita
+}
+
+enum rentals_status {
+  pending
+  ongoing
+  active
+  completed
+  returning
+}
