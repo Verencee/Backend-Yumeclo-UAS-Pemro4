@@ -23,7 +23,7 @@ folder penting di backend ini:
 
 1. Clone repo ini:
 2. Masuk ke folder backend
-3. Jalankan npm i
+3. Jalankan npm install
 4. Buat file .env
 - DATABASE_URL="xx"
 - CLOUDINARY_CLOUD_NAME=xx
