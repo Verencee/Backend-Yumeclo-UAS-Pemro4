@@ -26,11 +26,11 @@ folder penting di backend ini:
 3. Jalankan npm i
 4. Buat file .env
 
-DATABASE_URL="xx"
+  DATABASE_URL="xx"
 
-CLOUDINARY_CLOUD_NAME=xx
-CLOUDINARY_API_KEY=xx
-CLOUDINARY_API_SECRET=xx
+  CLOUDINARY_CLOUD_NAME=xx
+  CLOUDINARY_API_KEY=xx
+  CLOUDINARY_API_SECRET=xx
 
 JWT_SECRET=xx 
 
