@@ -25,13 +25,10 @@ folder penting di backend ini:
 2. Masuk ke folder backend
 3. Jalankan npm i
 4. Buat file .env
-
-  DATABASE_URL="xx"
-
-  CLOUDINARY_CLOUD_NAME=xx
-  CLOUDINARY_API_KEY=xx
-  CLOUDINARY_API_SECRET=xx
-
-JWT_SECRET=xx 
+- DATABASE_URL="xx"
+- CLOUDINARY_CLOUD_NAME=xx
+- CLOUDINARY_API_KEY=xx
+- CLOUDINARY_API_SECRET=xx
+- JWT_SECRET=xx 
 
 5. Jalankan server di terminal ketik nodemon
