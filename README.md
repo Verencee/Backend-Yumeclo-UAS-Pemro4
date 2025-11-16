@@ -11,10 +11,10 @@ Clone frontend-nya:
 
 folder penting di backend ini:
 
-- `/controller` → tempat logic utama (costumes, rentals, users)
+- `/controller` → logic utama (costumes, rentals, users)
 - `/config` → konfigurasi Cloudinary
 - `/prisma` → schema Prisma
-- `.env` → file environment (tidak ikut GitHub)
+- `.env` → file environment
 - `index.js` → file utama untuk jalanin server
 
 ---
